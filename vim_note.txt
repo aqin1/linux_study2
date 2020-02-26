@@ -402,16 +402,150 @@
 	
 	
 	
+					Vimtutor的一些笔记
+	a - 在光标后面添加(插入), add
+	A - 在行末添加(插入)    , Add
+	
+motion:
+	$ - 行尾
+	0 - 行首
+	w - 单词首
+	e - 单词尾
+	g - 跳转
+	G - 跳转
+	
+operator:
+	x - 删除
+	d - 删除
+	c - 更改，删除字符串并进入插入模式
+	u - 撤销，但好像不能和[number],motion配合使用
+	p - put，粘贴或是置入
+	r - 替换，不进入插入模式,2ra,替换两个字符为 a
+	R - 替换模式，直到按<ESC>键退出
+	/ - 查找，可能不能和[number],motion配合使用
+	? - 反向查找，可能不能和[number],motion配合使用
+	s - 替代
+	y - 复制
 	
 	
 	
 	
+	删除命令d的格式
+		[number]d[motion]  或  d[number][motion]
+		number - 表示执行命令的次数，缺省为 1
+		motion - 表示
+	如： 2dw 等同于 d2w 
+	d$ - 从光标处删到行末尾
+	d0 - 从光标处删到行首
+	de - 从当前光标处删除到单词末尾，包括最后一个字符
+	dw - 从当前光标处删除到下一个单词开头，不包括它的第一个字符
+	ndd - 删除 n 行，n默认为 1
+	d - delete
+	
+	2w - 光标向右(后)移动两个单词 ，词首
+	3e - 光标向右(后)移动到第三个单词的末尾
+	0 - 光标移动到行首
+	w - word
+	e - end
+	
+	u - 撤销最后执行的命令
+	U - 撤销这一行的修改
+	ctrl-r - 撤销以前的撤销命令，即撤销 u 或 U 命令
+	
+	p - 将最后一次删除的内容置入光标之后，P 是之前
+	p - put  P - Put   ; put the text
+	
+	r - 按 r 然后输入要替换的一个字符,依然是正常模式
+	:r filename - 提取文件内容并插入当前光标处
+	:r !cmd - 将命令 cmd 的输出插入当前光标后
+	R - 替换模式
+	r - replace
+	
+	c    [number]   motion
+	ce - 改变文本直到一个单词末尾，删除对应字符并进入插入模式
+	cw - 改变文本直到一个单词首，删除对应字符并进入插入模式
+	c - change
+	
+	gg - 跳到行首
+	ngg - 跳到第 n 行
+	G - 跳到最后一行
+	nG - 跳到第 n 行
+	CTRL-g 显示当前编辑文件中当前光标所在行位置>以及文件状态信息。
+	g - go  , G - Goto
+	
+	/ - 查找
+	? - 反向查找
+	n - 查找下一个
+	N - 查找上一个
+	
+	ctrl-o - 回到之前的位置(jumplist)
+	ctrl-i - 跳到较新的位置(jumplist)
+	注：这里位置(jumplist)是指执行过operator的位置，而不是motion
+	:ju[mps] - 查看所有的位置(jumplist)
+	:cle[arjumps] - 清除所有的位置(jumplist)
+	
+	% - 查找匹配的)、]、},光标需要在括号下,会在匹配的括号跳转
+	
+	查找并替换 s - Substitute 译：替代
+	:[range]s[ubstitute]/{pattern}/{string}/[flags] [count]
+	:s/old/new/g - 替换整行的匹配字符
+	:%s/old/new/g - 替换整个文件中的每个匹配字符串
+	:s/old/new - 替换该行匹配到的第一个字符串
+	:n,ms/old/new/g - n,m 是首尾两行的行号
+	:%s/old/new/gc - 替换整个文件中的每个匹配字符串,提示是否替换
+	c 标志 - 表示替换前提示
+	
+	:!cmd - 执行外部shell的 cmd 命令
+	 
+	:w filename - 另存当前文件为filename
+	v motion :w filename - 按 v 然后移动光标，将选中文本保存到文件filename中
+	
+	o - 在光标下方打开新行并进入插入模式
+	O - 在光标方上打开新行并进入插入模式
+	o - open
+	
+	j$ - 移动到下行行尾
+	
+	y - 把选中的文本复制
+	yw - 复制一个单词
+	
+	:set ic - 查找时忽略大小写
+	ic - ignore case
+	:set hls[earch] - 高亮显示查找结果
+	:set is - 查找短语时显示部分匹配，和:set hls配合使用，：set incsearch
+	:set nohls,:set nois,:set noic - 与上三条相反
+	/search\c - 仅在查找第一个search时忽略大小写
+	
+	ctrl-w ctrl-w - 在窗口之间切换
+	:h[elp] user-manual - 查找user-manual帮助文档
+	:h cmd - 用于查找cmd命令的帮助文档
+	
+	vim内命令
+	:edit ~/.vimrc - 编辑当前用户vim配置文档，没有就会新建
+	:edit /etc/vim/vimrc - 编辑系统vim配置文档
+	:r $VIMRUNTIME/vimrc_example.vim - 插入vimrc示例文件
+	:h vimrc-intro - 更多的vimrc配置文档
+	
+	ctrl-d - 显示补全命令列表
+	<TAB> - 多次按<TAB>键将命令列表的命令依次补全
+	上面两条命令需要确保vim不是在兼容模式下运行
+	:set nocp - 不是在兼容模式下运行
 	
 	
 	
 	
-	
-	
+
+帮助命令：:h commad   如 :h q
+在正常模式下修改命令的格式是：
+               operator   [number]   motion
+			或 [number]   operator   motion
+			或 [number]   operator
+     其中：
+       operator - 操作符，代表要做的事情，比如 d 代表>删除
+       [number] - 可以附加的数字，代表动作重复的次数
+       motion   - 动作，代表在所操作的文本上的移动
+	   例如 w 代表单词(word)，
+       $ 代表行末等等。
 	
 	
 	
